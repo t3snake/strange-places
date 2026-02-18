@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://dm8h8007tfulr"]
+
+[ext_resource type="Texture2D" uid="uid://bw3amxscqygqq" path="res://Assets/UI/naveena/background_scaled.png" id="1_il4hu"]
+[ext_resource type="Script" uid="uid://ddq7k1fc522t4" path="res://Scripts/ui/level_select_menu.gd" id="1_ujjhf"]
+[ext_resource type="FontFile" uid="uid://cfrp63w0hyxlv" path="res://Assets/Font/MathewCarter/Charter Regular.ttf" id="4_xfq8v"]
+[ext_resource type="StyleBox" uid="uid://d1d80l7b6kqnf" path="res://Resources/button_texture.tres" id="5_dmd7t"]
+[ext_resource type="StyleBox" uid="uid://1lsqtg2a4k5l" path="res://Resources/button_hover_texture.tres" id="5_frwud"]
+
+[node name="LevelSelectMenu" type="CanvasLayer"]
+script = ExtResource("1_ujjhf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_il4hu")
+stretch_mode = 1
+
+[node name="LevelSelectLabel" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 485.0
+offset_top = 26.0
+offset_right = 824.0
+offset_bottom = 104.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 50
+text = "Level Select"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
+layout_mode = 0
+offset_top = 131.0
+offset_right = 1279.0
+offset_bottom = 717.0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="MarginContainerColumn1" type="MarginContainer" parent="TextureRect/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/HBoxContainer/MarginContainerColumn1"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Level1Button" type="Button" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("5_frwud")
+theme_override_styles/hover_pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/hover_pressed = ExtResource("5_dmd7t")
+theme_override_styles/hover_mirrored = ExtResource("5_frwud")
+theme_override_styles/hover = ExtResource("5_frwud")
+theme_override_styles/pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/pressed = ExtResource("5_dmd7t")
+theme_override_styles/normal_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/normal = ExtResource("5_dmd7t")
+text = "Level 1
+"
+
+[node name="Level2Button" type="Button" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../Level1Button")
+focus_next = NodePath("../Level1Button")
+focus_previous = NodePath(".")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("5_frwud")
+theme_override_styles/hover_pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/hover_pressed = ExtResource("5_dmd7t")
+theme_override_styles/hover_mirrored = ExtResource("5_frwud")
+theme_override_styles/hover = ExtResource("5_frwud")
+theme_override_styles/pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/pressed = ExtResource("5_dmd7t")
+theme_override_styles/normal_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/normal = ExtResource("5_dmd7t")
+text = "Level 2"
+
+[node name="Level3Button" type="Button" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../Level1Button")
+focus_next = NodePath("../Level1Button")
+focus_previous = NodePath(".")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("5_frwud")
+theme_override_styles/hover_pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/hover_pressed = ExtResource("5_dmd7t")
+theme_override_styles/hover_mirrored = ExtResource("5_frwud")
+theme_override_styles/hover = ExtResource("5_frwud")
+theme_override_styles/pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/pressed = ExtResource("5_dmd7t")
+theme_override_styles/normal_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/normal = ExtResource("5_dmd7t")
+text = "Level 3"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level1HighScore" type="Label" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+text = "High Score: NA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level2HighScore" type="Label" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+text = "High Score: NA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level3HighScore" type="Label" parent="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+text = "High Score: NA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainerColumn2" type="MarginContainer" parent="TextureRect/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/HBoxContainer/MarginContainerColumn2"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Level4Button" type="Button" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("5_frwud")
+theme_override_styles/hover_pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/hover_pressed = ExtResource("5_dmd7t")
+theme_override_styles/hover_mirrored = ExtResource("5_frwud")
+theme_override_styles/hover = ExtResource("5_frwud")
+theme_override_styles/pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/pressed = ExtResource("5_dmd7t")
+theme_override_styles/normal_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/normal = ExtResource("5_dmd7t")
+text = "Level 4
+"
+
+[node name="Level5Button" type="Button" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../Level4Button")
+focus_next = NodePath("../Level4Button")
+focus_previous = NodePath(".")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("5_frwud")
+theme_override_styles/hover_pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/hover_pressed = ExtResource("5_dmd7t")
+theme_override_styles/hover_mirrored = ExtResource("5_frwud")
+theme_override_styles/hover = ExtResource("5_frwud")
+theme_override_styles/pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/pressed = ExtResource("5_dmd7t")
+theme_override_styles/normal_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/normal = ExtResource("5_dmd7t")
+text = "Level 5"
+
+[node name="Level6Button" type="Button" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../Level4Button")
+focus_next = NodePath("../Level4Button")
+focus_previous = NodePath(".")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = ExtResource("5_frwud")
+theme_override_styles/hover_pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/hover_pressed = ExtResource("5_dmd7t")
+theme_override_styles/hover_mirrored = ExtResource("5_frwud")
+theme_override_styles/hover = ExtResource("5_frwud")
+theme_override_styles/pressed_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/pressed = ExtResource("5_dmd7t")
+theme_override_styles/normal_mirrored = ExtResource("5_dmd7t")
+theme_override_styles/normal = ExtResource("5_dmd7t")
+text = "Level 6"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level4HighScore" type="Label" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+text = "High Score: NA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level5HighScore" type="Label" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+text = "High Score: NA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level6HighScore" type="Label" parent="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_xfq8v")
+theme_override_font_sizes/font_size = 30
+text = "High Score: NA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer/Level1Button" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer/Level2Button" to="." method="_on_level_2_button_pressed"]
+[connection signal="pressed" from="TextureRect/HBoxContainer/MarginContainerColumn1/HBoxContainer/VBoxContainer/Level3Button" to="." method="_on_level_3_button_pressed"]
+[connection signal="pressed" from="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer/Level4Button" to="." method="_on_level_4_button_pressed"]
+[connection signal="pressed" from="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer/Level5Button" to="." method="_on_level_5_button_pressed"]
+[connection signal="pressed" from="TextureRect/HBoxContainer/MarginContainerColumn2/HBoxContainer/VBoxContainer/Level6Button" to="." method="_on_level_6_button_pressed"]

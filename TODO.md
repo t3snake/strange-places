@@ -1,0 +1,1 @@
+- Hit animation: play death and then reverse. [ref](https://www.reddit.com/r/godot/comments/e16rlm/command_for_playing_animation_backwards/)

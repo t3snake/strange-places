@@ -1,0 +1,249 @@
+extends CharacterBody3D
+
+class_name MainCharacter
+
+# references
+@onready var camera_pivot = $CameraPivot  # camera arm
+@onready var camera = $CameraPivot/SpringArm3D/Camera3D
+@onready var anim_player = $CharacterModel/AnimationPlayer
+# model is rotated instead of the root CharacterBody, since rotation also rotates the velocity, might also affect colliders.
+# https://www.reddit.com/r/godot/comments/1d4bai7/why_do_we_rotate_only_the_mesh_and_not_the/
+@onready var model = $CharacterModel
+
+@onready var footstep_player = %Footsteps
+@onready var jump_player = %Jump
+@onready var gold_collect_player = %GoldCollected
+@onready var death_player = %Death
+
+@export var current_level: int
+
+# editor exported state
+@export_group("Player Parameters")
+@export var speed = 10.0
+@export var acceleration = 10.0
+
+@export var high_jump_vert_speed = 18.0
+@export var long_jump_vert_speed = 12.0
+@export var dive_vert_speed = 8.0
+
+# 24m horizontal distance possible with 12.0 y and 20 horizontal (long jump)
+@export_group("Mouse")
+@export var mouse_sensitivity = 0.0015
+@export var rotation_speed = 15.0
+
+@export var killzone_y = -10.0
+
+# debug params
+@export_group("Debug")
+@export var show_debug_info = true
+
+enum CharacterState { IDLE, WALK, RUN, JUMP, FALL, DIVE, DEAD }
+enum JumpState { LONG_JUMP, NORMAL_JUMP, BACKFLIP }
+
+# state
+var input = Vector2.ZERO
+var character_state : CharacterState
+var jump_state : JumpState
+
+var is_running : bool
+var is_jumping : bool
+var is_falling : bool  # to play fall animation after jump
+var is_diving : bool
+var is_dead : bool
+var dive_direction_y = 0.0  # to save direction on diving to lerp to later
+
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 3
+
+func _ready() -> void:
+	GlobalState.init_level(current_level)
+	GlobalState.start_timer()
+
+	jump_state = JumpState.NORMAL_JUMP
+	character_state = CharacterState.IDLE
+	is_running = false
+	is_diving = false
+	is_falling = false
+	is_jumping = false
+	is_dead = false
+
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _physics_process(delta):
+	check_level_beaten()
+
+	if global_position.y < killzone_y:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		game_over()
+
+	velocity.y += -gravity * delta
+	var move_dir = Vector3.ZERO
+	if !is_jumping:
+		move_dir = get_move_input(delta)
+	move_and_slide()
+
+	set_character_state()
+	handle_animation()
+
+	if !input.is_zero_approx() and !is_jumping:
+		var target_rotation = atan2(move_dir.x, move_dir.z)
+		model.rotation.y = lerp_angle(model.rotation.y, target_rotation + PI, rotation_speed * delta)
+	elif is_diving:
+		model.rotation.y = lerp_angle(model.rotation.y, dive_direction_y, rotation_speed * delta)
+
+	# Debug info
+	if is_jumping and absf(velocity.y) < 0.25 and show_debug_info:
+		if is_diving:
+			print("Dive Jump")
+		elif jump_state == JumpState.NORMAL_JUMP:
+			print("Normal Jump")
+		elif jump_state == JumpState.LONG_JUMP:
+			print("Long Jump")
+		var horiz_speed = Vector2(velocity.x, velocity.z)
+		print("Horizontal speed: " + str(horiz_speed.length()))
+		print("Vertical height: " + str(global_position.y))
+
+func get_move_input(delta):
+	var vy = velocity.y
+	velocity.y = 0
+	input = Input.get_vector("left", "right", "forward", "back")
+	var dir = Vector3(input.x, 0, input.y)
+	if camera_pivot:
+		dir = dir.rotated(Vector3.UP, camera_pivot.rotation.y)
+	var new_speed = speed*2 if is_running else speed
+	velocity = lerp(velocity, dir * new_speed, acceleration * delta)
+	velocity.y = vy
+	return dir
+
+func _unhandled_input(event):
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
+			# camera handling on mouse movement
+			camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
+			camera_pivot.rotation_degrees.x = clampf(camera_pivot.rotation_degrees.x, -90.0, 30.0)
+			camera_pivot.rotation.y -= event.relative.x * mouse_sensitivity
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	if event.is_action_pressed("click"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	if event.is_action_pressed("jump"):
+		if !is_jumping and is_on_floor():
+			is_jumping = true
+			jump_player.play()
+			if is_running:
+				# long jump
+				velocity.y = long_jump_vert_speed
+				jump_state = JumpState.LONG_JUMP
+			else:
+				# high jump
+				velocity.y = high_jump_vert_speed
+				jump_state = JumpState.NORMAL_JUMP
+		elif (is_jumping and !is_diving) or (is_falling and !is_diving):
+			is_diving = true
+			jump_player.play()
+			var dive_velocity = get_dive_velocity()
+			 #if dive in the opposite direction, the magnitude is same as initial jump
+			 #if in same direction, the magnitude increases by 50%
+			if dive_velocity.dot(velocity) > 0:
+				velocity = 1.2 * dive_velocity
+			else:
+				velocity = dive_velocity
+
+	if event.is_action_pressed("run"):
+		is_running = true
+
+	if event.is_action_released("run"):
+		is_running = false
+
+func get_dive_velocity():
+	var cam_dir = -camera.get_global_transform().basis.z
+	var cam_horizontal_dir = Vector2(cam_dir.x, cam_dir.z).normalized()
+	var player_horizontal_speed = Vector2(velocity.x, velocity.z).length()
+	var dive_horizontal_velocity = cam_horizontal_dir * player_horizontal_speed
+	dive_direction_y = camera_pivot.rotation.y
+
+	return Vector3(
+		dive_horizontal_velocity.x,
+		dive_vert_speed,
+		dive_horizontal_velocity.y
+	)
+
+func set_character_state():
+	if !is_falling and velocity.y < -2:
+		is_falling = true
+
+	if is_on_floor():
+		is_jumping = false
+		is_falling = false
+		is_diving = false
+
+	if is_dead:
+		character_state = CharacterState.DEAD
+	elif is_diving:
+		character_state = CharacterState.DIVE
+	elif is_falling:
+		character_state = CharacterState.FALL
+	elif is_jumping:
+		character_state = CharacterState.JUMP
+	elif is_running and !input.is_zero_approx():
+		character_state = CharacterState.RUN
+	elif input.is_zero_approx():
+		character_state = CharacterState.IDLE
+	else:
+		character_state = CharacterState.WALK
+
+func handle_animation():
+	match character_state:
+		CharacterState.WALK:
+			play_animation("walk")
+		CharacterState.RUN:
+			play_animation("sprint")
+		CharacterState.IDLE:
+			play_animation("idle")
+		CharacterState.JUMP:
+			play_animation("jump")
+		CharacterState.FALL:
+			play_animation("fall")
+		CharacterState.DIVE:
+			play_animation("drive")
+		CharacterState.DEAD:
+			play_animation("die")
+
+func play_animation(anim_name: String) -> void:
+	if anim_player.is_playing() and anim_player.current_animation == anim_name:
+		return
+
+	anim_player.play(anim_name)
+
+func die() -> void:
+	is_dead = true
+	play_death_sound()
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "die":
+		get_tree().change_scene_to_file("res://Scenes/ui/died_menu.tscn")
+
+func play_footstep() -> void:
+	footstep_player.play()
+
+func play_death_sound() -> void:
+	if !death_player.is_playing():
+		death_player.play(0.57)
+
+func check_level_beaten() -> void:
+	if GlobalState.is_current_level_cleared:
+		GlobalState.stop_timer()
+		gold_collect_player.play()
+		set_physics_process(false)
+		await get_tree().create_timer(0.5).timeout
+		get_tree().change_scene_to_file("res://Scenes/ui/end_menu.tscn")
+
+func game_over() -> void:
+	play_death_sound()
+	camera_pivot.top_level = true;
+	GlobalState.stop_timer()
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://Scenes/ui/died_menu.tscn")

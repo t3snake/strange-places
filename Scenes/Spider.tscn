@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dolyut3m3dd6g"]
+
+[ext_resource type="Script" uid="uid://cr885x636b0lu" path="res://Scripts/spider.gd" id="1_oc654"]
+[ext_resource type="PackedScene" uid="uid://dk71lnuygdq6h" path="res://Models/Animal/Spider.fbx" id="2_oc654"]
+[ext_resource type="PackedScene" uid="uid://de8o3ahvfle2o" path="res://Models/Character/mc.glb" id="3_hrc5k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oc654"]
+size = Vector3(5.6804276, 1.9696655, 5.0567627)
+
+[node name="Spider" type="CharacterBody3D" unique_id=1562097509]
+script = ExtResource("1_oc654")
+
+[node name="SpiderModel" parent="." unique_id=92670043 instance=ExtResource("2_oc654")]
+unique_name_in_owner = true
+
+[node name="Skeleton3D" parent="SpiderModel/HumanArmature" parent_id_path=PackedInt32Array(92670043, 267270384) index="0" unique_id=690346271]
+bones/1/position = Vector3(2.063291e-05, 0.015285526, -0.0010825844)
+bones/2/rotation = Quaternion(0.435203, 0.14305688, -0.5446199, 0.7025114)
+bones/3/rotation = Quaternion(0.50411874, -0.032346543, 0.12599413, 0.853782)
+bones/4/rotation = Quaternion(0.048741527, 0.1561166, 0.10126026, 0.98132473)
+bones/6/rotation = Quaternion(0.16869494, 0.38233322, -0.5237038, 0.7423595)
+bones/7/rotation = Quaternion(0.72709787, 0.026022807, 0.071038514, 0.68235254)
+bones/8/rotation = Quaternion(0.06222002, 0.23219235, 0.16411789, 0.95670307)
+bones/10/rotation = Quaternion(-0.16437669, 0.40161452, -0.5454659, 0.7170448)
+bones/11/rotation = Quaternion(0.3846642, 0.8797283, -0.10699105, 0.25819474)
+bones/12/rotation = Quaternion(-0.10543097, 0.47039565, 0.31605026, 0.81714416)
+bones/14/rotation = Quaternion(-0.23452455, 0.21270928, -0.42035925, 0.85032415)
+bones/15/rotation = Quaternion(0.57750845, 0.6852293, -0.20233905, 0.39497304)
+bones/16/rotation = Quaternion(0.1604512, 0.41742942, 0.2916834, 0.84553474)
+bones/18/rotation = Quaternion(0.49140316, -0.1389153, 0.18329632, 0.84001666)
+bones/19/rotation = Quaternion(0.40341684, -0.3509568, -0.08291192, 0.84095776)
+bones/20/rotation = Quaternion(0.18084057, 0.036961813, -0.16510852, 0.9688497)
+bones/22/rotation = Quaternion(0.16564593, 0.105724506, 0.29927433, 0.9337123)
+bones/23/rotation = Quaternion(-0.6596487, 0.698236, 0.031318124, -0.27631366)
+bones/24/rotation = Quaternion(0.09818429, 0.074513234, -0.25628072, 0.95871156)
+bones/26/rotation = Quaternion(-0.510587, 0.6007442, 0.024637926, 0.6146547)
+bones/27/rotation = Quaternion(0.43095246, 0.74507517, -0.09996334, -0.49914974)
+bones/28/rotation = Quaternion(-0.20706548, 0.673501, 0.053344574, 0.70758367)
+bones/30/rotation = Quaternion(-0.30120862, 0.44743648, 0.25666675, 0.80199516)
+bones/31/rotation = Quaternion(-0.5486274, -0.09911985, 0.20127475, 0.8054017)
+bones/32/rotation = Quaternion(-0.31172064, 0.5783374, -0.09360091, 0.74806076)
+bones/34/rotation = Quaternion(-0.70490754, 0.0032054842, 0.0028790557, 0.7092862)
+bones/34/scale = Vector3(0.8799599, 0.8799598, 0.87996006)
+bones/37/rotation = Quaternion(0.23727047, -0.00028591073, 0.0003878801, 0.9714436)
+bones/41/position = Vector3(0.016903155, 0.00024694027, 0.026352514)
+bones/41/rotation = Quaternion(0.07134703, 0.6814711, 0.72438806, -0.0759515)
+bones/43/position = Vector3(0.026156817, 0.00024694027, 0.017715923)
+bones/45/position = Vector3(0.020356024, 0.00019918726, -0.022013918)
+bones/47/position = Vector3(0.028381824, 0.00017551616, -0.010883968)
+bones/51/position = Vector3(-0.016865639, 0.00024694085, 0.026352499)
+bones/51/rotation = Quaternion(-0.07146081, 0.6814827, 0.72437716, 0.07584554)
+bones/53/position = Vector3(-0.026119294, 0.00024694085, 0.0177159)
+bones/55/rotation = Quaternion(-0.72762495, 0.38000047, -0.019762766, 0.5707635)
+bones/57/position = Vector3(-0.028344274, 0.0001755166, -0.010883995)
+bones/57/rotation = Quaternion(0.72699064, -0.52120787, -0.175367, -0.41118538)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SpiderModel/HumanArmature/Skeleton3D" index="1" unique_id=206076295]
+transform = Transform3D(0.997221, -0.0745001, -2.633988e-05, -2.4553481e-05, 2.4894327e-05, -0.9999999, 0.07450009, 0.9972209, 2.299591e-05, 2.0632393e-05, 0.0010825824, 0.015285525)
+bone_name = "Body"
+bone_idx = 1
+
+[node name="MainCharModel" parent="SpiderModel/HumanArmature/Skeleton3D/BoneAttachment3D" unique_id=22724149 instance=ExtResource("3_hrc5k")]
+unique_name_in_owner = true
+transform = Transform3D(0.00997221, 0.0007450008, 2.4544607e-07, -0.000745001, 0.009972213, -2.50132e-07, -2.6339882e-07, 2.311512e-07, 0.010000003, 0.0002604737, -0.0025116391, 0.003254378)
+
+[node name="Skeleton3D" parent="SpiderModel/HumanArmature/Skeleton3D/BoneAttachment3D/MainCharModel/character-male-e" parent_id_path=PackedInt32Array(22724149, 257905070) index="0" unique_id=812213393]
+bones/0/position = Vector3(0, -0.15, 0)
+bones/1/rotation = Quaternion(-0.6087615, 0, 0, 0.7933534)
+bones/2/rotation = Quaternion(-0.6087615, 0, 0, 0.7933534)
+bones/4/rotation = Quaternion(0, 0, -0.3826835, 0.92387956)
+bones/5/rotation = Quaternion(0, 0, 0.3826835, 0.92387956)
+
+[node name="AnimationPlayer" parent="SpiderModel/HumanArmature/Skeleton3D/BoneAttachment3D/MainCharModel" index="1" unique_id=509219506]
+active = false
+autoplay = &"sit"
+
+[node name="AnimationPlayer" parent="SpiderModel" index="1" unique_id=1542098478]
+autoplay = &"HumanArmature|Spider_Idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=703738146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.054600716, 0.9974383, 0.17297363)
+shape = SubResource("BoxShape3D_oc654")
+
+[editable path="SpiderModel"]
+[editable path="SpiderModel/HumanArmature/Skeleton3D/BoneAttachment3D/MainCharModel"]
