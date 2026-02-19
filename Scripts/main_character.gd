@@ -4,7 +4,7 @@ class_name MainCharacter
 
 # references
 @onready var camera_pivot = $CameraPivot  # camera arm
-@onready var camera = $CameraPivot/SpringArm3D/Camera3D
+@onready var camera : Camera3D = $CameraPivot/SpringArm3D/Camera3D
 @onready var anim_player = $CharacterModel/AnimationPlayer
 # model is rotated instead of the root CharacterBody, since rotation also rotates the velocity, might also affect colliders.
 # https://www.reddit.com/r/godot/comments/1d4bai7/why_do_we_rotate_only_the_mesh_and_not_the/

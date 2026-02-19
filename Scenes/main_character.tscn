@@ -2751,7 +2751,7 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_keg3j"]
 radius = 0.377767
-height = 0.808664
+height = 0.7934746
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fsers"]
 streams_count = 5
@@ -2763,6 +2763,7 @@ stream_4/stream = ExtResource("9_5av31")
 
 [node name="MainCharacter" type="CharacterBody3D" unique_id=1689192214]
 collision_layer = 2
+safe_margin = 0.2
 script = ExtResource("1_11o2n")
 killzone_y = -20.0
 
@@ -2776,7 +2777,7 @@ bones/0/name = "root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.15, 0)
+bones/0/position = Vector3(0, 0, 0)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "leg-left"
@@ -2784,14 +2785,14 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.083571, 0.17625, -0.02875)
 bones/1/enabled = true
 bones/1/position = Vector3(0.083571, 0.17625, -0.02875)
-bones/1/rotation = Quaternion(-0.60876137, 0, 0, 0.7933535)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "leg-right"
 bones/2/parent = 0
 bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.083571, 0.17625, -0.02875)
 bones/2/enabled = true
 bones/2/position = Vector3(-0.083571, 0.17625, -0.02875)
-bones/2/rotation = Quaternion(-0.60876137, 0, 0, 0.7933535)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "torso"
 bones/3/parent = 0
@@ -2836,7 +2837,7 @@ skeleton = NodePath("..")
 libraries/ = SubResource("AnimationLibrary_3u83q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=453485705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.381681, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3892757, 0)
 shape = SubResource("CapsuleShape3D_keg3j")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=78747575]

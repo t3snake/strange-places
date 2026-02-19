@@ -46,9 +46,11 @@ func _ready() -> void:
 	main_char_model.visible = false
 	main_char_ref = null
 
+	camera.current = false
+
 # Shows and enables process of MainChar and sets spider camera enabled. Disables mounted state.
 func detach_player_and_camera():
-	camera.enabled = false
+	camera.current = false
 	main_char_model.visible = false
 	is_mounted = false
 
@@ -61,17 +63,16 @@ func detach_player_and_camera():
 		main_char_ref.global_position = detach_marker.global_position
 		main_char_ref.reset_physics_interpolation()
 		main_char_ref.visible = true
-		main_char_ref.camera.enabled = true
+		main_char_ref.camera.make_current()
 
 # Hides and disables process of MainChar and switches to spider camera. Enables mounted state.
 func attach_player_and_camera():
 	assert(main_char_ref != null)
+	camera.make_current()
 
-	main_char_ref.camera.enabled = false
+	main_char_ref.camera.current = false
 	main_char_ref.visible = false
 	main_char_ref.process_mode = Node.PROCESS_MODE_DISABLED
-
-	camera.enabled = true
 
 	# disable monitoring while mounted, no need for it
 	$InteractArea.monitoring = false
@@ -133,10 +134,11 @@ func _input(event: InputEvent) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_mounted and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
 		# camera handling on mouse movement
-		camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
-		camera_pivot.rotation_degrees.x = clampf(camera_pivot.rotation_degrees.x, -90.0, 30.0)
-		camera_pivot.rotation.y -= event.relative.x * mouse_sensitivity
+			camera_pivot.rotation.x -= event.relative.y * mouse_sensitivity
+			camera_pivot.rotation_degrees.x = clampf(camera_pivot.rotation_degrees.x, -90.0, 30.0)
+			camera_pivot.rotation.y -= event.relative.x * mouse_sensitivity
 
 func play_animation(anim_name: String):
 	if anim_player.is_playing() and anim_player.current_animation == anim_name:

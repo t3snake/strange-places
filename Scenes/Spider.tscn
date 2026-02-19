@@ -12,7 +12,6 @@ size = Vector3(7.2557907, 2.909668, 5.9625854)
 
 [node name="Spider" type="CharacterBody3D" unique_id=1562097509]
 script = ExtResource("1_oc654")
-killzone_y = null
 
 [node name="SpiderModel" parent="." unique_id=92670043 instance=ExtResource("2_oc654")]
 unique_name_in_owner = true
@@ -92,16 +91,20 @@ spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=438283797]
 
-[node name="DetachPointMarker" type="Marker3D" parent="." unique_id=1660791252]
+[node name="DetachMarker" type="Marker3D" parent="." unique_id=1660791252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.325059)
 
 [node name="InteractArea" type="Area3D" parent="." unique_id=1260158172]
+collision_layer = 16
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=385336537]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15993118, 0.954834, -0.16842651)
 shape = SubResource("BoxShape3D_sbdki")
 
 [connection signal="animation_finished" from="SpiderModel/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
 
 [editable path="SpiderModel"]
 [editable path="SpiderModel/HumanArmature/Skeleton3D/BoneAttachment3D/MainCharModel"]
