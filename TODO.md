@@ -1,1 +1,8 @@
-- Hit animation: play death and then reverse. [ref](https://www.reddit.com/r/godot/comments/e16rlm/command_for_playing_animation_backwards/)
+- [ ] Hit animation: play death and then reverse. [ref](https://www.reddit.com/r/godot/comments/e16rlm/command_for_playing_animation_backwards/)
+- [ ] Add hit ?
+- [ ] Mount system. Toggle visibility of fake main char model on top of spider
+  - [ ] Set process mode disabled, hide model and attach to spider.
+  - [ ] On unmount, detach main char, set visibility enabled. and set process mode enabled
+- [ ] Wall walk on spider
+- [ ] Snake playing ball with each other and trampoline on jump
+- [ ] Hold objects and throw to teleport at any time

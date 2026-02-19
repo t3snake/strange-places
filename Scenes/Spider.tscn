@@ -5,25 +5,29 @@
 [ext_resource type="PackedScene" uid="uid://de8o3ahvfle2o" path="res://Models/Character/mc.glb" id="3_hrc5k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oc654"]
-size = Vector3(5.6804276, 1.9696655, 5.0567627)
+size = Vector3(5.6804276, 1.9696655, 4.149353)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbdki"]
+size = Vector3(7.2557907, 2.909668, 5.9625854)
 
 [node name="Spider" type="CharacterBody3D" unique_id=1562097509]
 script = ExtResource("1_oc654")
+killzone_y = null
 
 [node name="SpiderModel" parent="." unique_id=92670043 instance=ExtResource("2_oc654")]
 unique_name_in_owner = true
 
 [node name="Skeleton3D" parent="SpiderModel/HumanArmature" parent_id_path=PackedInt32Array(92670043, 267270384) index="0" unique_id=690346271]
 bones/1/position = Vector3(2.063291e-05, 0.015285526, -0.0010825844)
-bones/2/rotation = Quaternion(0.435203, 0.14305688, -0.5446199, 0.7025114)
-bones/3/rotation = Quaternion(0.50411874, -0.032346543, 0.12599413, 0.853782)
-bones/4/rotation = Quaternion(0.048741527, 0.1561166, 0.10126026, 0.98132473)
-bones/6/rotation = Quaternion(0.16869494, 0.38233322, -0.5237038, 0.7423595)
-bones/7/rotation = Quaternion(0.72709787, 0.026022807, 0.071038514, 0.68235254)
-bones/8/rotation = Quaternion(0.06222002, 0.23219235, 0.16411789, 0.95670307)
+bones/2/rotation = Quaternion(0.4352029, 0.143057, -0.54462, 0.7025113)
+bones/3/rotation = Quaternion(0.5041189, -0.032346517, 0.12599416, 0.8537819)
+bones/4/rotation = Quaternion(0.048741534, 0.15611659, 0.10126029, 0.98132473)
+bones/6/rotation = Quaternion(0.16869485, 0.38233328, -0.52370375, 0.74235964)
+bones/7/rotation = Quaternion(0.72709787, 0.02602284, 0.07103855, 0.6823526)
+bones/8/rotation = Quaternion(0.062220063, 0.23219241, 0.16411792, 0.95670307)
 bones/10/rotation = Quaternion(-0.16437669, 0.40161452, -0.5454659, 0.7170448)
-bones/11/rotation = Quaternion(0.3846642, 0.8797283, -0.10699105, 0.25819474)
-bones/12/rotation = Quaternion(-0.10543097, 0.47039565, 0.31605026, 0.81714416)
+bones/11/rotation = Quaternion(0.3846643, 0.8797284, -0.10699101, 0.25819477)
+bones/12/rotation = Quaternion(-0.105431, 0.4703957, 0.31605032, 0.817144)
 bones/14/rotation = Quaternion(-0.23452455, 0.21270928, -0.42035925, 0.85032415)
 bones/15/rotation = Quaternion(0.57750845, 0.6852293, -0.20233905, 0.39497304)
 bones/16/rotation = Quaternion(0.1604512, 0.41742942, 0.2916834, 0.84553474)
@@ -39,9 +43,8 @@ bones/28/rotation = Quaternion(-0.20706548, 0.673501, 0.053344574, 0.70758367)
 bones/30/rotation = Quaternion(-0.30120862, 0.44743648, 0.25666675, 0.80199516)
 bones/31/rotation = Quaternion(-0.5486274, -0.09911985, 0.20127475, 0.8054017)
 bones/32/rotation = Quaternion(-0.31172064, 0.5783374, -0.09360091, 0.74806076)
-bones/34/rotation = Quaternion(-0.70490754, 0.0032054842, 0.0028790557, 0.7092862)
-bones/34/scale = Vector3(0.8799599, 0.8799598, 0.87996006)
-bones/37/rotation = Quaternion(0.23727047, -0.00028591073, 0.0003878801, 0.9714436)
+bones/34/rotation = Quaternion(-0.7049074, 0.0032054842, 0.0028790548, 0.7092862)
+bones/37/rotation = Quaternion(0.23727047, -0.0002859107, 0.00038787976, 0.9714436)
 bones/41/position = Vector3(0.016903155, 0.00024694027, 0.026352514)
 bones/41/rotation = Quaternion(0.07134703, 0.6814711, 0.72438806, -0.0759515)
 bones/43/position = Vector3(0.026156817, 0.00024694027, 0.017715923)
@@ -78,8 +81,27 @@ autoplay = &"sit"
 autoplay = &"HumanArmature|Spider_Idle"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=703738146]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.054600716, 0.9974383, 0.17297363)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.054600716, 0.9974383, -0.2807312)
 shape = SubResource("BoxShape3D_oc654")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=375733640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1646133509]
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=438283797]
+
+[node name="DetachPointMarker" type="Marker3D" parent="." unique_id=1660791252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.325059)
+
+[node name="InteractArea" type="Area3D" parent="." unique_id=1260158172]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=385336537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15993118, 0.954834, -0.16842651)
+shape = SubResource("BoxShape3D_sbdki")
+
+[connection signal="animation_finished" from="SpiderModel/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
 [editable path="SpiderModel"]
 [editable path="SpiderModel/HumanArmature/Skeleton3D/BoneAttachment3D/MainCharModel"]
