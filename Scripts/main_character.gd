@@ -84,6 +84,7 @@ func _physics_process(delta):
 	set_character_state()
 	handle_animation()
 
+	# apply rotation to model based on the direction it is moving
 	if !input.is_zero_approx() and !is_jumping:
 		var target_rotation = atan2(move_dir.x, move_dir.z)
 		model.rotation.y = lerp_angle(model.rotation.y, target_rotation + PI, rotation_speed * delta)

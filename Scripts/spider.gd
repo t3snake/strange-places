@@ -17,6 +17,11 @@ class_name Spider
 @export var mouse_sensitivity = 0.0015
 @export var rotation_speed = 15.0
 
+@export_group("Spider Movement")
+@export var speed = 10.0
+@export var acceleration = 10.0
+@export var jump_speed = 10.0
+
 enum SpiderAnimState { IDLE, WALK, HIT, ATTACK, JUMP }
 
 var is_mounted : bool
@@ -25,6 +30,9 @@ var can_mount : bool
 var is_hit : bool
 var is_jumping : bool
 var is_attacking : bool
+
+var current_up_dir = Vector3.UP
+var gravity_changed = false
 
 var animation_state : SpiderAnimState
 
@@ -50,6 +58,13 @@ func _ready() -> void:
 
 # Shows and enables process of MainChar and sets spider camera enabled. Disables mounted state.
 func detach_player_and_camera():
+	if main_char_ref != null:
+		main_char_ref.process_mode = Node.PROCESS_MODE_INHERIT
+		main_char_ref.reset_physics_interpolation()
+		main_char_ref.global_position = detach_marker.global_position
+		main_char_ref.visible = true
+		main_char_ref.camera.make_current()
+
 	camera.current = false
 	main_char_model.visible = false
 	is_mounted = false
@@ -58,12 +73,6 @@ func detach_player_and_camera():
 	$InteractArea.monitorable = true
 	$InteractArea.monitoring = true
 
-	if main_char_ref != null:
-		main_char_ref.process_mode = Node.PROCESS_MODE_INHERIT
-		main_char_ref.global_position = detach_marker.global_position
-		main_char_ref.reset_physics_interpolation()
-		main_char_ref.visible = true
-		main_char_ref.camera.make_current()
 
 # Hides and disables process of MainChar and switches to spider camera. Enables mounted state.
 func attach_player_and_camera():
@@ -88,7 +97,7 @@ func _process(_delta: float) -> void:
 
 	sync_animation()
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if global_position.y < killzone_y:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# TODO game_over()
@@ -98,6 +107,29 @@ func _physics_process(_delta):
 		return
 
 	# character controller if is_mounted
+	set_animation_state()
+
+	# TODO support spider jump?
+	var move_dir = apply_movement(delta)
+	move_and_slide()
+
+	# apply rotation to model based on the direction it is moving
+	if !velocity.is_zero_approx() and !is_jumping:
+		var target_rotation = atan2(move_dir.x, move_dir.z)
+		spider_model.rotation.y = lerp_angle(spider_model.rotation.y, target_rotation, rotation_speed * delta)
+
+	if is_on_wall():
+		# rotate gravity direction
+		var wall_normal = get_wall_normal()
+		self.up_direction = wall_normal
+		current_up_dir = wall_normal
+		self.transform.basis = Basis(
+			self.basis.y,
+			wall_normal,
+			self.basis.x
+		).orthonormalized()
+
+func set_animation_state():
 	if is_jumping:
 		if is_on_floor():
 			is_jumping = false
@@ -108,7 +140,16 @@ func _physics_process(_delta):
 	elif velocity.is_zero_approx():
 		animation_state = SpiderAnimState.IDLE
 
-	# TODO support spider jump?
+func apply_movement(delta):
+	var vy = velocity.y
+	velocity.y = 0
+	var input = Input.get_vector("left", "right", "forward", "back")
+	var dir2d = Vector3(input.x, 0, input.y)
+	if camera_pivot:
+		dir2d = dir2d.rotated(current_up_dir, camera_pivot.rotation.y)
+	velocity = lerp(velocity, dir2d * speed, acceleration * delta)
+	velocity.y = vy
+	return dir2d
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -171,6 +212,6 @@ func _on_interact_area_body_entered(body: Node3D) -> void:
 		main_char_ref = body
 
 func _on_interact_area_body_exited(body: Node3D) -> void:
-	if body is MainCharacter:
+	if body is MainCharacter and !is_mounted:
 		can_mount = false
-		main_char_ref = null # is this needed? can cause bugs?
+		# main_char_ref = null # is this needed? can cause bugs?

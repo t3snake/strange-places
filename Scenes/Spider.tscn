@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://de8o3ahvfle2o" path="res://Models/Character/mc.glb" id="3_hrc5k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oc654"]
-size = Vector3(5.6804276, 1.9696655, 4.149353)
+size = Vector3(2.4580708, 1.9696655, 3.870453)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sbdki"]
-size = Vector3(7.2557907, 2.909668, 5.9625854)
+size = Vector3(5.330061, 2.909668, 5.4540253)
 
 [node name="Spider" type="CharacterBody3D" unique_id=1562097509]
 script = ExtResource("1_oc654")
@@ -80,14 +80,14 @@ autoplay = &"sit"
 autoplay = &"HumanArmature|Spider_Idle"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=703738146]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.054600716, 0.9974383, -0.2807312)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03226781, 0.9974383, -0.42018127)
 shape = SubResource("BoxShape3D_oc654")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=375733640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1646133509]
-spring_length = 3.0
+spring_length = 4.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=438283797]
 
@@ -99,7 +99,7 @@ collision_layer = 16
 collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=385336537]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15993118, 0.954834, -0.16842651)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.037574768, 0.8892, -0.31477046)
 shape = SubResource("BoxShape3D_sbdki")
 
 [connection signal="animation_finished" from="SpiderModel/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

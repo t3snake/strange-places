@@ -65,11 +65,11 @@ size = Vector3(0.49596405, 0.50289917, 0.51257324)
 
 [node name="block-grass-overhang-large2" parent="." unique_id=750886575 instance=ExtResource("34_uj6y5")]
 
-[node name="block-grass-overhang-large" parent="block-grass-overhang-large2" index="0" unique_id=279136633]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+[node name="block-grass-overhang-large" parent="block-grass-overhang-large2" index="0" unique_id=455003779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99985313, 0.003787756, 2.5868416e-05)
 
-[node name="CollisionShape3D" parent="block-grass-overhang-large2/block-grass-overhang-large/StaticBody3D" parent_id_path=PackedInt32Array(750886575, 833107148) index="0" unique_id=1402970860]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4921875, 0)
+[node name="CollisionShape3D" parent="block-grass-overhang-large2/block-grass-overhang-large/StaticBody3D" parent_id_path=PackedInt32Array(750886575, 2127974792) index="0" unique_id=4529750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.496521, 0)
 
 [node name="barrel2" parent="." unique_id=2130144669 instance=ExtResource("3_ve3y1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
